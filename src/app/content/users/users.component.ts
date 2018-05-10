@@ -2,7 +2,9 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UsersService } from './users.service';
 import { takeWhile } from 'rxjs/operators';
-import { IAirlines } from '../../interface/IAirlines'
+import { Iairlines } from '../../interface/iairlines';
+import { emailValidator } from  '../../validators/emailValidator';
+import { IcreateUser } from '../../interface/icreate-user';
 
 @Component( {
   selector: 'app-users',
@@ -13,6 +15,7 @@ export class UsersComponent implements OnInit, OnDestroy {
 
   private formUser: FormGroup;
   private isActive: boolean = true;
+  private user: IcreateUser;
   public airlines: any;
 
   constructor(
@@ -28,7 +31,7 @@ export class UsersComponent implements OnInit, OnDestroy {
   initAirline() {
     this.usersService.getAirlines()
       .pipe( takeWhile( () => this.isActive) )
-      .subscribe( (airlines: IAirlines) => {
+      .subscribe( (airlines: Iairlines) => {
         this.airlines = airlines.Data.Airlines;
         console.log(this.airlines);
       } );
@@ -38,8 +41,8 @@ export class UsersComponent implements OnInit, OnDestroy {
     this.formUser = this.fb.group( {
       UserName: [ '', [ Validators.required, Validators.minLength( 3 ) ] ],
       Password: [ '', [ Validators.required, Validators.minLength( 6 ) ] ],
-      // confirmation: [ '', [ Validators.required, Validators.minLength( 6 ) ] ],
-      Email: [ '', [ Validators.required ] ],
+      confirmation: [ '', [ Validators.required, Validators.minLength( 6 ) ] ],
+      Email: [ '', [ Validators.required, emailValidator ] ],
       FirstName: [ '', [ Validators.required, Validators.minLength( 3 ) ] ],
       LastName: [ '', [ Validators.required, Validators.minLength( 3 ) ] ],
       AirlineCode: [ '', [ Validators.required ] ],
@@ -49,8 +52,18 @@ export class UsersComponent implements OnInit, OnDestroy {
   }
 
   sendForm(): void {
-    console.log( this.formUser.getRawValue() );
-    this.usersService.createUser(this.formUser.getRawValue());
+
+    if (!this.formUser.invalid) {
+      this.user = {
+        AirlineCode: this.formUser.get('AirlineCode').value,
+        Email: this.formUser.get('Email').value,
+        FirstName: this.formUser.get('FirstName').value,
+        LastName: this.formUser.get('LastName').value,
+        Password: this.formUser.get('Password').value,
+        UserName: this.formUser.get('UserName').value,
+      };
+      this.usersService.createUser(this.user);
+    }
   }
 
   clearForm(): void {

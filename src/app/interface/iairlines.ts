@@ -1,4 +1,4 @@
-export interface IAirlines {
+export interface Iairlines {
   Data: any;
   ErrorDescSystem: string;
 }
