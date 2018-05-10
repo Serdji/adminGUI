@@ -30,18 +30,19 @@ export class UsersComponent implements OnInit, OnDestroy {
       .pipe( takeWhile( () => this.isActive) )
       .subscribe( (airlines: IAirlines) => {
         this.airlines = airlines.Data.Airlines;
+        console.log(this.airlines);
       } );
   }
 
   initForm() {
     this.formUser = this.fb.group( {
-      login: [ '', [ Validators.required, Validators.minLength( 3 ) ] ],
-      password: [ '', [ Validators.required, Validators.minLength( 6 ) ] ],
-      confirmation: [ '', [ Validators.required, Validators.minLength( 6 ) ] ],
-      email: [ '', [ Validators.required ] ],
-      firstName: [ '', [ Validators.required, Validators.minLength( 3 ) ] ],
-      lastName: [ '', [ Validators.required, Validators.minLength( 3 ) ] ],
-      airlineCode: [ '', [ Validators.required ] ],
+      UserName: [ '', [ Validators.required, Validators.minLength( 3 ) ] ],
+      Password: [ '', [ Validators.required, Validators.minLength( 6 ) ] ],
+      // confirmation: [ '', [ Validators.required, Validators.minLength( 6 ) ] ],
+      Email: [ '', [ Validators.required ] ],
+      FirstName: [ '', [ Validators.required, Validators.minLength( 3 ) ] ],
+      LastName: [ '', [ Validators.required, Validators.minLength( 3 ) ] ],
+      AirlineCode: [ '', [ Validators.required ] ],
     }, {
       updateOn: 'submit',
     } );
@@ -49,6 +50,7 @@ export class UsersComponent implements OnInit, OnDestroy {
 
   sendForm(): void {
     console.log( this.formUser.getRawValue() );
+    this.usersService.createUser(this.formUser.getRawValue());
   }
 
   clearForm(): void {
