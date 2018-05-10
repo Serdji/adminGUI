@@ -4,7 +4,6 @@ import { UsersService } from './users.service';
 import { takeWhile } from 'rxjs/operators';
 import { Iairlines } from '../../interface/iairlines';
 import { emailValidator } from  '../../validators/emailValidator';
-import { IcreateUser } from '../../interface/icreate-user';
 
 @Component( {
   selector: 'app-users',
@@ -15,7 +14,6 @@ export class UsersComponent implements OnInit, OnDestroy {
 
   private formUser: FormGroup;
   private isActive: boolean = true;
-  private user: IcreateUser;
   public airlines: any;
 
   constructor(
