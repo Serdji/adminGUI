@@ -1,0 +1,31 @@
+<mat-card class="user__card">
+  <form class="user__form" [formGroup]="formUser">
+    <mat-form-field class="user__input">
+      <input matInput formControlName="login" placeholder="Логи">
+    </mat-form-field>
+    <mat-form-field class="user__input">
+      <input matInput formControlName="password" placeholder="Пароль">
+    </mat-form-field>
+    <mat-form-field class="user__input">
+      <input matInput formControlName="confirmation" placeholder="Подтверждение пароля">
+    </mat-form-field>
+    <mat-form-field class="user__input">
+      <input matInput type="email" formControlName="email" placeholder="email">
+    </mat-form-field>
+    <mat-form-field class="user__input">
+      <input matInput formControlName="firstName" placeholder="Имя">
+    </mat-form-field>
+    <mat-form-field class="user__input">
+      <input matInput formControlName="lastName" placeholder="Фамилия">
+    </mat-form-field>
+    <mat-form-field class="user__input">
+      <mat-select formControlName="airlineCode" placeholder="Авиакомпания">
+        <mat-option *ngFor="let airlin of airlines" id="{{airlin.id}}" value="{{airlin.AirlineName}}">{{airlin.AirlineName}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div class="user__button-wrapper">
+      <button class="user__button _clear" mat-raised-button (click)="clearForm()">Очистить форму</button>
+      <button class="user__button" mat-raised-button (click)="sendForm()" color="primary">Добавить пользователя</button>
+    </div>
+  </form>
+</mat-card>
