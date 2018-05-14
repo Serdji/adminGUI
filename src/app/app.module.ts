@@ -17,6 +17,7 @@ import { UsersService } from './content/users/users.service';
 import { AuthGuard } from './auth.guard';
 import { ActivityUserService } from './services/activity-user.service';
 import { HttpQueryService } from './services/http-query.service';
+import { DialogComponent } from './shared/dialog/dialog.component';
 
 @NgModule( {
   declarations: [
@@ -24,6 +25,10 @@ import { HttpQueryService } from './services/http-query.service';
     LoginComponent,
     AdminComponent,
     UsersComponent,
+    DialogComponent,
+  ],
+  entryComponents: [
+    DialogComponent,
   ],
   imports: [
     BrowserModule,

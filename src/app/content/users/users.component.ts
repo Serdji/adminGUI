@@ -3,7 +3,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UsersService } from './users.service';
 import { takeWhile } from 'rxjs/operators';
 import { Iairlines } from '../../interface/iairlines';
-import { emailValidator } from  '../../validators/emailValidator';
+import { emailValidator } from '../../validators/emailValidator';
+import { MatDialog } from '@angular/material';
+import { DialogComponent } from '../../shared/dialog/dialog.component';
+import { timer } from 'rxjs/observable/timer';
+import { Router } from '@angular/router';
 
 @Component( {
   selector: 'app-users',
@@ -19,6 +23,8 @@ export class UsersComponent implements OnInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
     private usersService: UsersService,
+    private dialog: MatDialog,
+    private router: Router,
   ) {}
 
   ngOnInit() {
@@ -28,8 +34,8 @@ export class UsersComponent implements OnInit, OnDestroy {
 
   initAirline() {
     this.usersService.getAirlines()
-      .pipe( takeWhile( () => this.isActive) )
-      .subscribe( (airlines: Iairlines) => {
+      .pipe( takeWhile( () => this.isActive ) )
+      .subscribe( ( airlines: Iairlines ) => {
         this.airlines = airlines.Data.Airlines;
       } );
   }
@@ -47,13 +53,47 @@ export class UsersComponent implements OnInit, OnDestroy {
     } );
   }
 
+  resetForm() {
+    this.formUser.reset();
+    this.formUser.get('UserName').setErrors(null);
+    this.formUser.get('Password').setErrors(null);
+    this.formUser.get('Password').setErrors(null);
+    this.formUser.get('Email').setErrors(null);
+    this.formUser.get('FirstName').setErrors(null);
+    this.formUser.get('LastName').setErrors(null);
+    this.formUser.get('AirlineCode').setErrors(null);
+  }
+
   sendForm(): void {
 
-    if (!this.formUser.invalid) this.usersService.createUser(this.formUser.getRawValue());
+    if ( !this.formUser.invalid ) {
+      this.usersService.createUser( this.formUser.getRawValue() )
+        .subscribe(
+          value => {
+            if ( value.error ) {
+              this.dialog.open( DialogComponent, {
+                data: {
+                  message: value.error.Data.ErrorMsg,
+                  status: 'error',
+                },
+              } );
+            } else {
+              this.dialog.open( DialogComponent, {
+                data: {
+                  message: 'Пользователь успешно добавлен',
+                  status: 'ok',
+                },
+              } );
+              this.resetForm();
+            }
+            timer( 1500 ).subscribe( () => this.dialog.closeAll() );
+          },
+        );
+    }
   }
 
   clearForm(): void {
-    this.formUser.reset();
+    this.resetForm();
   }
 
   ngOnDestroy() {

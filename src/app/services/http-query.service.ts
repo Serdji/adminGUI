@@ -38,6 +38,8 @@ export class HttpQueryService {
                     .subscribe( data => this.subjectGetQuery.next( data ) );
                 } );
               } );
+            } else {
+              this.subjectPostQuery.next( error );
             }
           },
         );
@@ -64,6 +66,8 @@ export class HttpQueryService {
                     .subscribe( data => this.subjectPostQuery.next( data ) );
                 } );
               } );
+            } else {
+              this.subjectPostQuery.next( error );
             }
           },
         );
