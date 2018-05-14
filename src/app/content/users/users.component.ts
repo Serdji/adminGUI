@@ -55,13 +55,9 @@ export class UsersComponent implements OnInit, OnDestroy {
 
   resetForm() {
     this.formUser.reset();
-    this.formUser.get('UserName').setErrors(null);
-    this.formUser.get('Password').setErrors(null);
-    this.formUser.get('Password').setErrors(null);
-    this.formUser.get('Email').setErrors(null);
-    this.formUser.get('FirstName').setErrors(null);
-    this.formUser.get('LastName').setErrors(null);
-    this.formUser.get('AirlineCode').setErrors(null);
+    for ( const formControlName in this.formUser.value ) {
+      this.formUser.get(`${ formControlName }`).setErrors(null);
+    }
   }
 
   sendForm(): void {
@@ -69,7 +65,7 @@ export class UsersComponent implements OnInit, OnDestroy {
     if ( !this.formUser.invalid ) {
       this.usersService.createUser( this.formUser.getRawValue() )
         .subscribe(
-          value => {
+          (value: any) => {
             if ( value.error ) {
               this.dialog.open( DialogComponent, {
                 data: {

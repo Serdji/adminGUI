@@ -39,7 +39,7 @@ export class HttpQueryService {
                 } );
               } );
             } else {
-              this.subjectPostQuery.next( error );
+              this.subjectGetQuery.next( error );
             }
           },
         );
