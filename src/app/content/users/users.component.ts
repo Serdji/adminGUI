@@ -2,7 +2,12 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UsersService } from './users.service';
 import { takeWhile } from 'rxjs/operators';
-import { IAirlines } from '../../interface/IAirlines'
+import { Iairlines } from '../../interface/iairlines';
+import { emailValidator } from '../../validators/emailValidator';
+import { MatDialog } from '@angular/material';
+import { DialogComponent } from '../../shared/dialog/dialog.component';
+import { timer } from 'rxjs/observable/timer';
+import { Router } from '@angular/router';
 
 @Component( {
   selector: 'app-users',
@@ -18,6 +23,8 @@ export class UsersComponent implements OnInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
     private usersService: UsersService,
+    private dialog: MatDialog,
+    private router: Router,
   ) {}
 
   ngOnInit() {
@@ -27,32 +34,62 @@ export class UsersComponent implements OnInit, OnDestroy {
 
   initAirline() {
     this.usersService.getAirlines()
-      .pipe( takeWhile( () => this.isActive) )
-      .subscribe( (airlines: IAirlines) => {
+      .pipe( takeWhile( () => this.isActive ) )
+      .subscribe( ( airlines: Iairlines ) => {
         this.airlines = airlines.Data.Airlines;
       } );
   }
 
   initForm() {
     this.formUser = this.fb.group( {
-      login: [ '', [ Validators.required, Validators.minLength( 3 ) ] ],
-      password: [ '', [ Validators.required, Validators.minLength( 6 ) ] ],
-      confirmation: [ '', [ Validators.required, Validators.minLength( 6 ) ] ],
-      email: [ '', [ Validators.required ] ],
-      firstName: [ '', [ Validators.required, Validators.minLength( 3 ) ] ],
-      lastName: [ '', [ Validators.required, Validators.minLength( 3 ) ] ],
-      airlineCode: [ '', [ Validators.required ] ],
+      UserName: [ '', [ Validators.required, Validators.minLength( 3 ) ] ],
+      Password: [ '', [ Validators.required, Validators.minLength( 6 ) ] ],
+      Email: [ '', [ Validators.required, emailValidator ] ],
+      FirstName: [ '', [ Validators.required, Validators.minLength( 3 ) ] ],
+      LastName: [ '', [ Validators.required, Validators.minLength( 3 ) ] ],
+      AirlineCode: [ '', [ Validators.required ] ],
     }, {
       updateOn: 'submit',
     } );
   }
 
+  resetForm() {
+    this.formUser.reset();
+    for ( const formControlName in this.formUser.value ) {
+      this.formUser.get( `${ formControlName }` ).setErrors( null );
+    }
+  }
+
   sendForm(): void {
-    console.log( this.formUser.getRawValue() );
+
+    if ( !this.formUser.invalid ) {
+      this.usersService.createUser( this.formUser.getRawValue() )
+        .subscribe(
+          ( value: any ) => {
+            if ( value.error ) {
+              this.dialog.open( DialogComponent, {
+                data: {
+                  message: value.error.Data.ErrorMsg,
+                  status: 'error',
+                },
+              } );
+            } else {
+              this.dialog.open( DialogComponent, {
+                data: {
+                  message: 'Пользователь успешно добавлен',
+                  status: 'ok',
+                },
+              } );
+              this.resetForm();
+            }
+            timer( 1500 ).subscribe( () => this.dialog.closeAll() );
+          },
+        );
+    }
   }
 
   clearForm(): void {
-    this.formUser.reset();
+    this.resetForm();
   }
 
   ngOnDestroy() {

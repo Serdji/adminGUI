@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, enableProdMode } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -17,6 +17,11 @@ import { UsersService } from './content/users/users.service';
 import { AuthGuard } from './auth.guard';
 import { ActivityUserService } from './services/activity-user.service';
 import { HttpQueryService } from './services/http-query.service';
+import { DialogComponent } from './shared/dialog/dialog.component';
+
+if (!/localhost/.test(document.location.host)) {
+  enableProdMode();
+}
 
 @NgModule( {
   declarations: [
@@ -24,6 +29,10 @@ import { HttpQueryService } from './services/http-query.service';
     LoginComponent,
     AdminComponent,
     UsersComponent,
+    DialogComponent,
+  ],
+  entryComponents: [
+    DialogComponent,
   ],
   imports: [
     BrowserModule,

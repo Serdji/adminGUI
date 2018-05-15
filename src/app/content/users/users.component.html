@@ -1,26 +1,23 @@
 <mat-card class="user__card">
   <form class="user__form" [formGroup]="formUser">
     <mat-form-field class="user__input">
-      <input matInput formControlName="login" placeholder="Логи">
+      <input matInput formControlName="UserName" placeholder="Логи">
     </mat-form-field>
     <mat-form-field class="user__input">
-      <input matInput formControlName="password" placeholder="Пароль">
+      <input matInput formControlName="Password" placeholder="Пароль">
     </mat-form-field>
     <mat-form-field class="user__input">
-      <input matInput formControlName="confirmation" placeholder="Подтверждение пароля">
+      <input matInput type="email" formControlName="Email" placeholder="email">
     </mat-form-field>
     <mat-form-field class="user__input">
-      <input matInput type="email" formControlName="email" placeholder="email">
+      <input matInput formControlName="FirstName" placeholder="Имя">
     </mat-form-field>
     <mat-form-field class="user__input">
-      <input matInput formControlName="firstName" placeholder="Имя">
+      <input matInput formControlName="LastName" placeholder="Фамилия">
     </mat-form-field>
     <mat-form-field class="user__input">
-      <input matInput formControlName="lastName" placeholder="Фамилия">
-    </mat-form-field>
-    <mat-form-field class="user__input">
-      <mat-select formControlName="airlineCode" placeholder="Авиакомпания">
-        <mat-option *ngFor="let airlin of airlines" id="{{airlin.id}}" value="{{airlin.AirlineName}}">{{airlin.AirlineName}}</mat-option>
+      <mat-select formControlName="AirlineCode" placeholder="Авиакомпания">
+        <mat-option *ngFor="let airlin of airlines" id="{{airlin.id}}" value="{{airlin.AirlineCode}}">{{airlin.AirlineCode}}</mat-option>
       </mat-select>
     </mat-form-field>
     <div class="user__button-wrapper">
