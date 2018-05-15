@@ -27,7 +27,6 @@ export class AdminComponent implements OnInit {
 
   sidenavToggle(): void {
     this.sidenav.toggle();
-    this.timeoutCloseNav();
   }
 
   goOut(): void {
