@@ -20,7 +20,6 @@ export class AdminComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.router.navigate( [ 'sadmin/admin/users' ] );
     this.timeoutCloseNav();
     this.activityUser.idleLogout();
   }

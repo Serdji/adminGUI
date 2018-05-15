@@ -18,6 +18,7 @@ import { AuthGuard } from './auth.guard';
 import { ActivityUserService } from './services/activity-user.service';
 import { HttpQueryService } from './services/http-query.service';
 import { DialogComponent } from './shared/dialog/dialog.component';
+import { UsersSearchComponent } from './content/users-search/users-search.component';
 
 if (!/localhost/.test(document.location.host)) {
   enableProdMode();
@@ -30,6 +31,7 @@ if (!/localhost/.test(document.location.host)) {
     AdminComponent,
     UsersComponent,
     DialogComponent,
+    UsersSearchComponent,
   ],
   entryComponents: [
     DialogComponent,
