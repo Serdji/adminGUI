@@ -1,0 +1,34 @@
+<mat-card class="user-search__card">
+  <mat-card-title>Поиск пользователя</mat-card-title>
+  <form class="user-search__form" [formGroup]="formUserSearch">
+    <mat-form-field class="user-search__input">
+      <input matInput formControlName="UserName" placeholder="Логи">
+    </mat-form-field>
+    <mat-form-field class="user-search__input">
+      <input matInput formControlName="FirstName" placeholder="Имя">
+    </mat-form-field>
+    <mat-form-field class="user-search__input">
+      <input matInput formControlName="LastName" placeholder="Фамилия">
+    </mat-form-field>
+    <mat-form-field class="user-search__input">
+      <input matInput type="email" formControlName="Email" placeholder="email">
+    </mat-form-field>
+    <mat-form-field class="user-search__input">
+      <mat-select formControlName="AirlineCode" placeholder="Авиакомпания">
+        <mat-option *ngFor="let airlin of airlines" id="{{airlin.id}}" value="{{airlin.AirlineCode}}">{{airlin.AirlineCode}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div class="user-search__button-wrapper">
+      <button class="user-search__button _clear" mat-raised-button (click)="clearForm()">Очистить форму</button>
+      <button class="user-search__button" mat-raised-button (click)="sendForm()" color="primary">
+        <mat-icon>search</mat-icon>
+        Искать
+      </button>
+    </div>
+  </form>
+</mat-card>
+
+<mat-card *ngIf="users">
+  <mat-card-title>Результаты поиска</mat-card-title>
+  <app-tablet-example></app-tablet-example>
+</mat-card>

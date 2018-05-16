@@ -9,7 +9,7 @@ export class UsersSearchService {
   constructor(private httpQuery: HttpQueryService) { }
 
   getUserSearch (params: string): Observable<IuserSearch> {
-    return this.httpQuery.getWithOptions('/web_auth/api/accounts/users', params);
+    return this.httpQuery.getWithOptions('web_auth/api/accounts/users', params);
   }
 
 }

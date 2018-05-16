@@ -5,7 +5,8 @@ import { takeWhile } from 'rxjs/operators';
 import { Iairlines } from '../../interface/iairlines';
 import { IuserSearch } from '../../interface/iuser-search';
 import { UsersSearchService } from './users-search.service';
-import { MatTableDataSource, MatSort, MatSortable } from '@angular/material';
+import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
+import { timer } from 'rxjs/observable/timer';
 
 @Component( {
   selector: 'app-users-search',
@@ -15,14 +16,21 @@ import { MatTableDataSource, MatSort, MatSortable } from '@angular/material';
 export class UsersSearchComponent implements OnInit, OnDestroy {
 
   public users;
-  public displayedColumns = [ 'AirlineCode', 'UserName', 'FirstName', 'LastName', 'Email' ];
-  public dataSource;
+  public displayedColumns: string[] = [
+    'AirlineCode',
+    'UserName',
+    'FirstName',
+    'LastName',
+    'Email',
+  ];
+  public dataSource: MatTableDataSource<IuserSearch>;
   public airlines: any;
 
   private formUserSearch: FormGroup;
   private isActive: boolean = true;
 
   @ViewChild( MatSort ) sort: MatSort;
+  @ViewChild( MatPaginator ) paginator: MatPaginator;
 
   constructor(
     private fb: FormBuilder,
@@ -76,7 +84,10 @@ export class UsersSearchComponent implements OnInit, OnDestroy {
         .subscribe( ( value: IuserSearch ) => {
           this.users = value.Data.Users;
           this.dataSource = new MatTableDataSource( this.users );
-          this.dataSource.sort = this.sort;
+          timer( 1 ).subscribe( () => {
+            this.dataSource.sort = this.sort;
+            this.dataSource.paginator = this.paginator;
+          } );
         } );
     }
   }

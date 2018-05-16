@@ -12,14 +12,15 @@ import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from './services/auth.service';
 import { LocalStorageModule } from '@ngx-pwa/local-storage';
 import { AdminComponent } from './page/admin/admin.component';
-import { UsersComponent } from './content/users/users.component';
-import { UsersService } from './content/users/users.service';
+import { UsersComponent } from './components/users/users.component';
+import { UsersService } from './components/users/users.service';
 import { AuthGuard } from './auth.guard';
 import { ActivityUserService } from './services/activity-user.service';
 import { HttpQueryService } from './services/http-query.service';
 import { DialogComponent } from './shared/dialog/dialog.component';
-import { UsersSearchComponent } from './content/users-search/users-search.component';
-import { UsersSearchService } from './content/users-search/users-search.service';
+import { UsersSearchComponent } from './components/users-search/users-search.component';
+import { UsersSearchService } from './components/users-search/users-search.service';
+import { TabletExampleComponent } from './shared/tablet-example/tablet-example.component';
 
 if (!/localhost/.test(document.location.host)) {
   enableProdMode();
@@ -33,6 +34,7 @@ if (!/localhost/.test(document.location.host)) {
     UsersComponent,
     DialogComponent,
     UsersSearchComponent,
+    TabletExampleComponent,
   ],
   entryComponents: [
     DialogComponent,
