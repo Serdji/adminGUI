@@ -28,16 +28,21 @@
   </form>
 </mat-card>
 
-<mat-card *ngIf="users">
-  <mat-card-title>Результаты поиска</mat-card-title>
-  <app-tablet-example
-    [tableHeader]="[
-      ['AirlineCode', 'Код АК'],
-      ['UserName', 'Логин'],
-      ['FirstName', 'Имя'],
-      ['LastName', 'Фамилия'],
-      ['Email', 'Email']
-    ]"
-    [tableDataSource]="users">
-  </app-tablet-example>
+<mat-card *ngIf="isTableCard">
+  <mat-progress-bar *ngIf="isLoader; else loaserDisabled" mode="buffer"></mat-progress-bar>
+  <ng-template #loaserDisabled>
+    <mat-card-title>{{users.length !==0 ? 'Результаты поиска' : 'По этому запросу ничего не найдено'}}</mat-card-title>
+    <app-tablet-example
+      [tableHeader]="[
+        ['AirlineCode', 'Код АК'],
+        ['UserName', 'Логин'],
+        ['FirstName', 'Имя'],
+        ['LastName', 'Фамилия'],
+        ['Email', 'Email']
+      ]"
+      [tableDataSource]="users"
+
+    >
+    </app-tablet-example>
+  </ng-template>
 </mat-card>

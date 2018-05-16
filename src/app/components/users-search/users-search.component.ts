@@ -16,6 +16,8 @@ export class UsersSearchComponent implements OnInit, OnDestroy {
 
   public users;
   public airlines: any;
+  public isTableCard: boolean = false;
+  public isLoader: boolean = false;
 
   private formUserSearch: FormGroup;
   private isActive: boolean = true;
@@ -61,6 +63,10 @@ export class UsersSearchComponent implements OnInit, OnDestroy {
   }
 
   sendForm(): void {
+
+    this.isTableCard = true;
+    this.isLoader = true;
+
     if ( !this.formUserSearch.invalid ) {
       let params = '?';
       for ( const key in this.formUserSearch.value ) {
@@ -73,6 +79,7 @@ export class UsersSearchComponent implements OnInit, OnDestroy {
         .pipe( takeWhile( () => this.isActive ) )
         .subscribe( ( value: IuserSearch ) => {
           this.users = value.Data.Users;
+          this.isLoader = false;
         } );
     }
   }
