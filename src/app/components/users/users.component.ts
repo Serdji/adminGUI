@@ -7,7 +7,6 @@ import { emailValidator } from '../../validators/emailValidator';
 import { MatDialog } from '@angular/material';
 import { DialogComponent } from '../../shared/dialog/dialog.component';
 import { timer } from 'rxjs/observable/timer';
-import { Router } from '@angular/router';
 
 @Component( {
   selector: 'app-users',
@@ -24,7 +23,6 @@ export class UsersComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private usersService: UsersService,
     private dialog: MatDialog,
-    private router: Router,
   ) {}
 
   ngOnInit() {

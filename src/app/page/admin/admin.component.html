@@ -18,11 +18,8 @@
 
 <mat-sidenav-container class="example-container" autosize>
   <mat-sidenav #sidenav class="example-sidenav" opened="true" mode="side">
-    <p>Auto-resizing sidenav</p>
-    <p *ngIf="showFiller">Lorem, ipsum dolor sit amet consectetur.</p>
-    <button (click)="showFiller = !showFiller" mat-raised-button>
-      Toggle extra text
-    </button>
+    <a mat-button color="primary" routerLink="/sadmin/admin/users"  routerLinkActive="admin__link-active">Добавить пользователя</a>
+    <a mat-button color="primary" routerLink="/sadmin/admin/usersearch"  routerLinkActive="admin__link-active">Поиск пользователей</a>
   </mat-sidenav>
 
   <mat-sidenav-content class="admin__content">
