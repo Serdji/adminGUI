@@ -30,5 +30,14 @@
 
 <mat-card *ngIf="users">
   <mat-card-title>Результаты поиска</mat-card-title>
-  <app-tablet-example></app-tablet-example>
+  <app-tablet-example
+    [tableHeader]="[
+      ['AirlineCode', 'Код АК'],
+      ['UserName', 'Логин'],
+      ['FirstName', 'Имя'],
+      ['LastName', 'Фамилия'],
+      ['Email', 'Email']
+    ]"
+    [tableDataSource]="users">
+  </app-tablet-example>
 </mat-card>
