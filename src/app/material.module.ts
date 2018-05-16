@@ -10,6 +10,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatTableModule } from '@angular/material/table';
+import {MatSortModule} from '@angular/material/sort';
 
 @NgModule( {
   imports: [
@@ -23,6 +25,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatMenuModule,
     MatSelectModule,
     MatDialogModule,
+    MatTableModule,
+    MatSortModule,
   ],
   exports: [
     MatToolbarModule,
@@ -35,6 +39,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatMenuModule,
     MatSelectModule,
     MatDialogModule,
+    MatTableModule,
+    MatSortModule,
   ],
 } )
 export class MaterialModule {

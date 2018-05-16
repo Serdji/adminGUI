@@ -19,6 +19,7 @@ import { ActivityUserService } from './services/activity-user.service';
 import { HttpQueryService } from './services/http-query.service';
 import { DialogComponent } from './shared/dialog/dialog.component';
 import { UsersSearchComponent } from './content/users-search/users-search.component';
+import { UsersSearchService } from './content/users-search/users-search.service';
 
 if (!/localhost/.test(document.location.host)) {
   enableProdMode();
@@ -50,7 +51,8 @@ if (!/localhost/.test(document.location.host)) {
     AuthGuard,
     UsersService,
     ActivityUserService,
-    HttpQueryService
+    HttpQueryService,
+    UsersSearchService
   ],
   bootstrap: [ AppComponent ],
 } )
