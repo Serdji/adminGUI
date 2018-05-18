@@ -21,6 +21,8 @@ import { DialogComponent } from './shared/dialog/dialog.component';
 import { UsersSearchComponent } from './components/users-search/users-search.component';
 import { UsersSearchService } from './components/users-search/users-search.service';
 import { TabletExampleComponent } from './shared/tablet-example/tablet-example.component';
+import { CompanyComponent } from './components/company/company.component';
+import { CompanyService } from './components/company/company.service';
 
 if (!/localhost/.test(document.location.host)) {
   enableProdMode();
@@ -35,6 +37,7 @@ if (!/localhost/.test(document.location.host)) {
     DialogComponent,
     UsersSearchComponent,
     TabletExampleComponent,
+    CompanyComponent,
   ],
   entryComponents: [
     DialogComponent,
@@ -54,7 +57,8 @@ if (!/localhost/.test(document.location.host)) {
     UsersService,
     ActivityUserService,
     HttpQueryService,
-    UsersSearchService
+    UsersSearchService,
+    CompanyService
   ],
   bootstrap: [ AppComponent ],
 } )

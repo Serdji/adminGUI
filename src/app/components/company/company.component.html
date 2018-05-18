@@ -1,0 +1,20 @@
+<mat-card>
+  <mat-progress-bar *ngIf="isLoader; else loaserDisabled" mode="buffer"></mat-progress-bar>
+  <ng-template #loaserDisabled>
+    <app-tablet-example
+      [tableHeader]="[
+          ['AirlineName', 'Имя'],
+          ['AirlineCode', 'Код АК'],
+          ['Description', 'Описания'],
+          ['ConnectionString', 'Connection string'],
+          ['UserTable', 'User table'],
+          ['RoleTable', 'Role table'],
+          ['UserRoleTable', 'User role table'],
+          ['UserLoginTable', 'User login table'],
+          ['IdentityDb', 'Identity DB']
+        ]"
+      [tableDataSource]="airlines"
+    ></app-tablet-example>
+  </ng-template>
+</mat-card>
+

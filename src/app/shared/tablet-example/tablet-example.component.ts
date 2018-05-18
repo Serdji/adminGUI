@@ -1,5 +1,11 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+import {
+  MatDialog,
+  MatPaginator,
+  MatSort,
+  MatTableDataSource,
+} from '@angular/material';
+import { DialogComponent } from '../dialog/dialog.component';
 import { timer } from 'rxjs/observable/timer';
 
 @Component( {
@@ -18,7 +24,7 @@ export class TabletExampleComponent implements OnInit {
   @ViewChild( MatSort ) sort: MatSort;
   @ViewChild( MatPaginator ) paginator: MatPaginator;
 
-  constructor() { }
+  constructor(private dialog: MatDialog) { }
 
   ngOnInit() {
     this.initDisplayedColumns();
@@ -37,6 +43,17 @@ export class TabletExampleComponent implements OnInit {
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
     } );
+  }
+
+  openText(event): void {
+    const text = event.target.innerText;
+    this.dialog.open( DialogComponent, {
+      data: {
+        message: text,
+        status: 'text',
+      },
+    } );
+
   }
 
 }
