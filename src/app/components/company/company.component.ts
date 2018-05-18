@@ -2,6 +2,11 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CompanyService } from './company.service';
 import { Iairlines } from '../../interface/iairlines';
 import { takeWhile } from 'rxjs/operators';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { DialogComponent } from '../../shared/dialog/dialog.component';
+import { MatDialog } from '@angular/material';
+import { DialogComponent } from '../../shared/dialog/dialog.component';
+import { timer } from 'rxjs/observable/timer';
 
 @Component( {
   selector: 'app-company',
@@ -13,12 +18,34 @@ export class CompanyComponent implements OnInit, OnDestroy {
   public airlines: any;
   public isLoader: boolean = true;
 
+  private formCompany: FormGroup;
   private isActive: boolean = true;
 
-  constructor( private companyService: CompanyService ) { }
+  constructor(
+    private fb: FormBuilder,
+    private companyService: CompanyService,
+    private dialog: MatDialog,
+  ) { }
 
   ngOnInit() {
     this.initAirline();
+    this.initForm();
+  }
+
+  initForm() {
+    this.formCompany = this.fb.group( {
+      AirlineCode: [ '' ],
+      AirlineName: [ '' ],
+      Description: [ '' ],
+      ConnectionString: [ '' ],
+      UserTable: [ '' ],
+      RoleTable: [ '' ],
+      UserRoleTable: [ '' ],
+      UserLoginTable: [ '' ],
+      IdentityDb: [ '' ],
+    }, {
+      updateOn: 'submit',
+    } );
   }
 
   initAirline() {
@@ -28,6 +55,36 @@ export class CompanyComponent implements OnInit, OnDestroy {
         this.airlines = airlines.Data.Airlines;
         this.isLoader = false;
       } );
+  }
+
+  resetForm() {
+    this.formCompany.reset();
+    for ( const formControlName in this.formCompany.value ) {
+      this.formCompany.get( `${ formControlName }` ).setErrors( null );
+    }
+  }
+
+  sendForm(): void {
+    if (! this.formCompany.invalid) {
+      this.companyService.createCompany(this.formCompany.getRawValue())
+        .pipe( takeWhile( () => this.isActive ) )
+        .subscribe( (value: any) => {
+          console.log(value);
+          if ( value.Data.ErrorMsg ) {
+            this.dialog.open( DialogComponent, {
+              data: {
+                message: value.Data.ErrorMsg,
+                status: 'error',
+              },
+            } );
+          }
+          timer( 1500 ).subscribe( () => this.dialog.closeAll() );
+        });
+    }
+  }
+
+  clearForm(): void {
+    this.resetForm();
   }
 
   ngOnDestroy() {

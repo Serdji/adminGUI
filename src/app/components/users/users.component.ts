@@ -62,6 +62,7 @@ export class UsersComponent implements OnInit, OnDestroy {
 
     if ( !this.formUser.invalid ) {
       this.usersService.createUser( this.formUser.getRawValue() )
+        .pipe( takeWhile( () => this.isActive ) )
         .subscribe(
           ( value: any ) => {
             if ( value.error ) {
