@@ -5,7 +5,6 @@ import { takeWhile } from 'rxjs/operators';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { DialogComponent } from '../../shared/dialog/dialog.component';
 import { MatDialog } from '@angular/material';
-import { DialogComponent } from '../../shared/dialog/dialog.component';
 import { timer } from 'rxjs/observable/timer';
 
 @Component( {
