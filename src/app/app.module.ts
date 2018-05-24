@@ -23,8 +23,9 @@ import { UsersSearchService } from './components/users-search/users-search.servi
 import { TabletExampleComponent } from './shared/tablet-example/tablet-example.component';
 import { CompanyComponent } from './components/company/company.component';
 import { CompanyService } from './components/company/company.service';
+import { environment } from '../environments/environment';
 
-if (!/localhost/.test(document.location.host)) {
+if ( environment.production ) {
   enableProdMode();
 }
 
@@ -58,7 +59,7 @@ if (!/localhost/.test(document.location.host)) {
     ActivityUserService,
     HttpQueryService,
     UsersSearchService,
-    CompanyService
+    CompanyService,
   ],
   bootstrap: [ AppComponent ],
 } )

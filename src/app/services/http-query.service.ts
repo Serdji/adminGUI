@@ -4,7 +4,7 @@ import { LocalStorage } from '@ngx-pwa/local-storage';
 import { AuthService } from './auth.service';
 import { Subject } from 'rxjs/Subject';
 import { Itoken } from '../interface/itoken';
-import { CRM_API } from '../../assets/constants';
+import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs/Observable';
 
 @Injectable()
@@ -25,7 +25,7 @@ export class HttpQueryService {
     this.localStorage.getItem( 'token' ).subscribe( ( token: Itoken ) => {
       this.headers = new HttpHeaders().set( 'Authorization',
         `Bearer ${token.access_token}` );
-      this.http.get( CRM_API + url + params, { headers: this.headers } )
+      this.http.get( environment.crmApi + url + params, { headers: this.headers } )
         .subscribe(
           value => this.subjectGetWithOptionsQuery.next( value ),
           error => {
@@ -35,7 +35,7 @@ export class HttpQueryService {
                   this.localStorage.setItem( 'token', newToken ).subscribe();
                   this.headers = new HttpHeaders().set( 'Authorization',
                     `Bearer ${newToken.access_token}` );
-                  this.http.get( CRM_API + url + params, { headers: this.headers } )
+                  this.http.get( environment.crmApi + url + params, { headers: this.headers } )
                     .subscribe( data => this.subjectGetWithOptionsQuery.next( data ) );
                 } );
               } );
@@ -52,7 +52,7 @@ export class HttpQueryService {
     this.localStorage.getItem( 'token' ).subscribe( ( token: Itoken ) => {
       this.headers = new HttpHeaders().set( 'Authorization',
         `Bearer ${token.access_token}` );
-      this.http.get( CRM_API + url, { headers: this.headers } )
+      this.http.get( environment.crmApi + url, { headers: this.headers } )
         .subscribe(
           value => this.subjectGetQuery.next( value ),
           error => {
@@ -62,7 +62,7 @@ export class HttpQueryService {
                   this.localStorage.setItem( 'token', newToken ).subscribe();
                   this.headers = new HttpHeaders().set( 'Authorization',
                     `Bearer ${newToken.access_token}` );
-                  this.http.get( CRM_API + url, { headers: this.headers } )
+                  this.http.get( environment.crmApi + url, { headers: this.headers } )
                     .subscribe( data => this.subjectGetQuery.next( data ) );
                 } );
               } );
@@ -79,7 +79,7 @@ export class HttpQueryService {
     this.localStorage.getItem( 'token' ).subscribe( ( token: Itoken ) => {
       this.headers = new HttpHeaders().set( 'Authorization',
         `Bearer ${token.access_token}` );
-      this.http.post( CRM_API + url, params, { headers: this.headers } )
+      this.http.post( environment.crmApi + url, params, { headers: this.headers } )
         .subscribe(
           value => this.subjectPostQuery.next( value ),
           error => {
@@ -89,7 +89,7 @@ export class HttpQueryService {
                   this.localStorage.setItem( 'token', newToken ).subscribe();
                   this.headers = new HttpHeaders().set( 'Authorization',
                     `Bearer ${newToken.access_token}` );
-                  this.http.post( CRM_API + url, params,
+                  this.http.post( environment.crmApi + url, params,
                     { headers: this.headers } )
                     .subscribe( data => this.subjectPostQuery.next( data ) );
                 } );
