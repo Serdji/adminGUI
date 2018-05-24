@@ -4,7 +4,7 @@ import { AuthService } from '../../services/auth.service';
 import { LocalStorage } from '@ngx-pwa/local-storage';
 import { Router } from '@angular/router';
 import { takeWhile } from 'rxjs/operators';
-import { AIRLINE_CODE } from '../../../assets/constants';
+import { environment } from '../../../environments/environment';
 
 @Component( {
   selector: 'app-login',
@@ -13,7 +13,7 @@ import { AIRLINE_CODE } from '../../../assets/constants';
 } )
 export class LoginComponent implements OnInit, OnDestroy {
 
-  public  airlineCode: string = AIRLINE_CODE;
+  public  airlineCode: string = environment.AirlineCode;
   private formLogin: FormGroup;
   private isActive: boolean = true;
 
