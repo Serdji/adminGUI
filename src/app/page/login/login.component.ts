@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   private initVersion() {
     this.loginService.getVersion()
       .pipe( takeWhile( () => this.isActive ) )
-      .subscribe( (value: string) => this.version = value );
+      .subscribe( (value: string) => this.version = `2.0.0.${value}` );
   }
 
   sendForm(): void {
