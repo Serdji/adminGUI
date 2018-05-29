@@ -9,7 +9,7 @@ import { UsersSearchComponent } from './components/users-search/users-search.com
 import { CompanyComponent } from './components/company/company.component';
 
 const routes: Routes = [
-  { path: '**', component: LoginComponent },
+  { path: '', component: LoginComponent },
   {
     path: 'admin',
     component: AdminComponent,
