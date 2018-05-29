@@ -4,15 +4,14 @@ import { LoginComponent } from './page/login/login.component';
 import { AppComponent } from './app.component';
 import { AdminComponent } from './page/admin/admin.component';
 import { UsersComponent } from './components/users/users.component';
-import { AuthGuard } from './auth.guard'
+import { AuthGuard } from './auth.guard';
 import { UsersSearchComponent } from './components/users-search/users-search.component';
 import { CompanyComponent } from './components/company/company.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/sadmin', pathMatch: 'full' },
-  { path: 'sadmin', component: LoginComponent },
+  { path: '', component: LoginComponent },
   {
-    path: 'sadmin/admin',
+    path: 'admin',
     component: AdminComponent,
     canActivate: [AuthGuard],
     children: [
@@ -24,7 +23,7 @@ const routes: Routes = [
 ];
 
 @NgModule( {
-  imports: [ RouterModule.forRoot( routes ) ],
+  imports: [ RouterModule.forRoot( routes, { useHash: true } ) ],
   exports: [ RouterModule ],
 } )
 export class AppRoutingModule {}

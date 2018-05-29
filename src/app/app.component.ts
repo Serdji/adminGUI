@@ -19,8 +19,8 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.localStorage.getItem( 'token' ).subscribe(
       value => {
-        if ( !value ) this.router.navigate([ 'sadmin' ] );
-        if ( this.location.path() === '/sadmin' ) this.router.navigate([ 'sadmin/admin/users' ] );
+        if ( !value ) this.router.navigate([ '/' ] );
+        if ( this.location.path() === '' ) this.router.navigate([ '/admin/users' ] );
       }
     );
   }
