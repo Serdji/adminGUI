@@ -9,10 +9,9 @@ import { UsersSearchComponent } from './components/users-search/users-search.com
 import { CompanyComponent } from './components/company/company.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/sadmin', pathMatch: 'full' },
-  { path: 'sadmin', component: LoginComponent },
+  { path: '', component: LoginComponent },
   {
-    path: 'sadmin/admin',
+    path: 'admin',
     component: AdminComponent,
     canActivate: [AuthGuard],
     children: [

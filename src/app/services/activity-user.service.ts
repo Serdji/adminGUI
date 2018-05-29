@@ -15,7 +15,7 @@ export class ActivityUserService {
 
   logout() {
     this.localStorage.clear().subscribe();
-    this.router.navigate( [ 'sadmin' ] );
+    this.router.navigate( [ '' ] );
   }
 
   idleLogout() {
