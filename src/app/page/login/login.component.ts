@@ -5,6 +5,7 @@ import { LocalStorage } from '@ngx-pwa/local-storage';
 import { Router } from '@angular/router';
 import { takeWhile } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
+import { LoginService } from './login.service';
 
 @Component( {
   selector: 'app-login',
@@ -13,7 +14,8 @@ import { environment } from '../../../environments/environment';
 } )
 export class LoginComponent implements OnInit, OnDestroy {
 
-  public  airlineCode: string = environment.AirlineCode;
+  public airlineCode: string = environment.AirlineCode;
+  public version: string;
   private formLogin: FormGroup;
   private isActive: boolean = true;
 
@@ -22,13 +24,15 @@ export class LoginComponent implements OnInit, OnDestroy {
     private auth: AuthService,
     private localStorage: LocalStorage,
     private router: Router,
+    private loginService: LoginService,
   ) { }
 
   ngOnInit() {
     this.initFormGroup();
+    this.initVersion();
   }
 
-  initFormGroup() {
+  private initFormGroup() {
     this.formLogin = this.fb.group( {
       username: [ '', [ Validators.required ] ],
       password: [ '', [ Validators.required ] ],
@@ -37,14 +41,23 @@ export class LoginComponent implements OnInit, OnDestroy {
     } );
   }
 
+  private initVersion() {
+    this.loginService.getVersion()
+      .pipe( takeWhile( () => this.isActive ) )
+      .subscribe( (value: string) => this.version = value );
+  }
+
   sendForm(): void {
     this.auth.setToken( this.formLogin.getRawValue() )
-      .pipe(takeWhile( () => this.isActive ))
+      .pipe( takeWhile( () => this.isActive ) )
       .subscribe( ( value ) => {
-        this.localStorage.setItem( 'user', this.formLogin.getRawValue() ).subscribe();
-        this.localStorage.setItem( 'token', value ).subscribe( () => this.router.navigate( [ 'admin/users' ] ) );
+        this.localStorage.setItem( 'user', this.formLogin.getRawValue() )
+          .subscribe();
+        this.localStorage.setItem( 'token', value )
+          .subscribe( () => this.router.navigate( [ 'admin/users' ] ) );
       } );
   }
+
 
   ngOnDestroy() {
     this.isActive = false;

@@ -24,6 +24,7 @@ import { TabletExampleComponent } from './shared/tablet-example/tablet-example.c
 import { CompanyComponent } from './components/company/company.component';
 import { CompanyService } from './components/company/company.service';
 import { environment } from '../environments/environment';
+import { LoginService } from './page/login/login.service';
 
 if ( environment.production ) {
   enableProdMode();
@@ -60,6 +61,7 @@ if ( environment.production ) {
     HttpQueryService,
     UsersSearchService,
     CompanyService,
+    LoginService,
   ],
   bootstrap: [ AppComponent ],
 } )
