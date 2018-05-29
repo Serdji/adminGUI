@@ -30,7 +30,7 @@ export class UsersComponent implements OnInit, OnDestroy {
     this.initAirline();
   }
 
-  initAirline() {
+  private initAirline() {
     this.usersService.getAirlines()
       .pipe( takeWhile( () => this.isActive ) )
       .subscribe( ( airlines: Iairlines ) => {
@@ -38,7 +38,7 @@ export class UsersComponent implements OnInit, OnDestroy {
       } );
   }
 
-  initForm() {
+  private initForm() {
     this.formUser = this.fb.group( {
       UserName: [ '', [ Validators.required, Validators.minLength( 3 ) ] ],
       Password: [ '', [ Validators.required, Validators.minLength( 6 ) ] ],

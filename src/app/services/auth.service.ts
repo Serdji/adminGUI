@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { LocalStorage } from '@ngx-pwa/local-storage';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class AuthService {
@@ -11,7 +12,7 @@ export class AuthService {
     private localStorage: LocalStorage,
   ) { }
 
-  setToken( params ) {
+  setToken( params ): Observable<any> {
     const options = {
       headers: new HttpHeaders().set( 'AirlineCode', environment.AirlineCode ),
       params: new HttpParams()

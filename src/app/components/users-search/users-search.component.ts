@@ -35,7 +35,7 @@ export class UsersSearchComponent implements OnInit, OnDestroy {
     this.initAirline();
   }
 
-  initAirline() {
+  private initAirline() {
     this.usersService.getAirlines()
       .pipe( takeWhile( () => this.isActive ) )
       .subscribe( ( airlines: Iairlines ) => {
@@ -43,7 +43,7 @@ export class UsersSearchComponent implements OnInit, OnDestroy {
       } );
   }
 
-  initForm() {
+  private initForm() {
     this.formUserSearch = this.fb.group( {
       UserName: [ '', [ Validators.minLength( 3 ) ] ],
       FirstName: [ '', [ Validators.minLength( 3 ) ] ],

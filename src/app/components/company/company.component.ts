@@ -47,7 +47,7 @@ export class CompanyComponent implements OnInit, OnDestroy {
     } );
   }
 
-  initAirline() {
+  private initAirline() {
     this.companyService.getAirlines()
       .pipe( takeWhile( () => this.isActive ) )
       .subscribe( ( airlines: Iairlines ) => {
@@ -56,7 +56,7 @@ export class CompanyComponent implements OnInit, OnDestroy {
       } );
   }
 
-  resetForm() {
+  private resetForm() {
     this.formCompany.reset();
     for ( const formControlName in this.formCompany.value ) {
       this.formCompany.get( `${ formControlName }` ).setErrors( null );
