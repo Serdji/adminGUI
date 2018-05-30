@@ -35,7 +35,7 @@ export class AdminComponent implements OnInit {
 
 
   private timeoutCloseNav() {
-    timer( this.getSeconds( 3 ) ).subscribe( () => this.sidenav.close() );
+    timer( this.getSeconds( 3 ) ).subscribe( _ => this.sidenav.close() );
   }
 
   private getSeconds( sec: number ): number {

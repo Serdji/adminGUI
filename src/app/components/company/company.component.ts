@@ -49,7 +49,7 @@ export class CompanyComponent implements OnInit, OnDestroy {
 
   private initAirline() {
     this.companyService.getAirlines()
-      .pipe( takeWhile( () => this.isActive ) )
+      .pipe( takeWhile( _ => this.isActive ) )
       .subscribe( ( airlines: Iairlines ) => {
         this.airlines = airlines.Data.Airlines;
         this.isLoader = false;
@@ -66,7 +66,7 @@ export class CompanyComponent implements OnInit, OnDestroy {
   sendForm(): void {
     if (! this.formCompany.invalid) {
       this.companyService.createCompany(this.formCompany.getRawValue())
-        .pipe( takeWhile( () => this.isActive ) )
+        .pipe( takeWhile( _ => this.isActive ) )
         .subscribe( (value: any) => {
           console.log(value);
           if ( value.Data.ErrorMsg ) {
@@ -77,7 +77,7 @@ export class CompanyComponent implements OnInit, OnDestroy {
               },
             } );
           }
-          timer( 1500 ).subscribe( () => this.dialog.closeAll() );
+          timer( 1500 ).subscribe( _ => this.dialog.closeAll() );
         });
     }
   }

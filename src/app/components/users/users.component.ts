@@ -32,7 +32,7 @@ export class UsersComponent implements OnInit, OnDestroy {
 
   private initAirline() {
     this.usersService.getAirlines()
-      .pipe( takeWhile( () => this.isActive ) )
+      .pipe( takeWhile( _ => this.isActive ) )
       .subscribe( ( airlines: Iairlines ) => {
         this.airlines = airlines.Data.Airlines;
       } );
@@ -62,7 +62,7 @@ export class UsersComponent implements OnInit, OnDestroy {
 
     if ( !this.formUser.invalid ) {
       this.usersService.createUser( this.formUser.getRawValue() )
-        .pipe( takeWhile( () => this.isActive ) )
+        .pipe( takeWhile( _ => this.isActive ) )
         .subscribe(
           ( value: any ) => {
             if ( value.error ) {
@@ -81,7 +81,7 @@ export class UsersComponent implements OnInit, OnDestroy {
               } );
               this.resetForm();
             }
-            timer( 1500 ).subscribe( () => this.dialog.closeAll() );
+            timer( 1500 ).subscribe( _ => this.dialog.closeAll() );
           },
         );
     }

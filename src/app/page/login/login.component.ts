@@ -16,6 +16,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   public airlineCode: string = environment.AirlineCode;
   public version: string;
+  public isErrorAuth: boolean = false;
   private formLogin: FormGroup;
   private isActive: boolean = true;
 
@@ -43,19 +44,24 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   private initVersion() {
     this.loginService.getVersion()
-      .pipe( takeWhile( () => this.isActive ) )
+      .pipe( takeWhile( _ => this.isActive ) )
       .subscribe( (value: string) => this.version = `2.0.0.${value}` );
   }
 
   sendForm(): void {
-    this.auth.setToken( this.formLogin.getRawValue() )
-      .pipe( takeWhile( () => this.isActive ) )
-      .subscribe( ( value ) => {
-        this.localStorage.setItem( 'user', this.formLogin.getRawValue() )
-          .subscribe();
-        this.localStorage.setItem( 'token', value )
-          .subscribe( () => this.router.navigate( [ 'admin/users' ] ) );
-      } );
+    if (!this.formLogin.invalid) {
+      this.auth.setToken( this.formLogin.getRawValue() )
+        .pipe( takeWhile( _ => this.isActive ) )
+        .subscribe(
+          ( value ) => {
+            this.localStorage.setItem( 'user', this.formLogin.getRawValue() )
+              .subscribe();
+            this.localStorage.setItem( 'token', value )
+              .subscribe( _ => this.router.navigate( [ 'admin/users' ] ) );
+          },
+          _ => this.isErrorAuth = true
+        );
+    }
   }
 
 

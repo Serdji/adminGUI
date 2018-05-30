@@ -37,7 +37,7 @@ export class UsersSearchComponent implements OnInit, OnDestroy {
 
   private initAirline() {
     this.usersService.getAirlines()
-      .pipe( takeWhile( () => this.isActive ) )
+      .pipe( takeWhile( _ => this.isActive ) )
       .subscribe( ( airlines: Iairlines ) => {
         this.airlines = airlines.Data.Airlines;
       } );
@@ -76,7 +76,7 @@ export class UsersSearchComponent implements OnInit, OnDestroy {
       }
 
       this.usersSearchService.getUserSearch( params )
-        .pipe( takeWhile( () => this.isActive ) )
+        .pipe( takeWhile( _ => this.isActive ) )
         .subscribe( ( value: IuserSearch ) => {
           this.users = value.Data.Users;
           this.isLoader = false;

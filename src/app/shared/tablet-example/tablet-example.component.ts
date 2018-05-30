@@ -39,7 +39,7 @@ export class TabletExampleComponent implements OnInit {
 
   private initDataSource() {
     this.dataSource = new MatTableDataSource( this.tableDataSource );
-    timer( 1 ).subscribe( () => {
+    timer( 1 ).subscribe( _ => {
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
     } );
