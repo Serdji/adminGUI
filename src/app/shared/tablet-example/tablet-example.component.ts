@@ -24,20 +24,20 @@ export class TabletExampleComponent implements OnInit {
   @ViewChild( MatSort ) sort: MatSort;
   @ViewChild( MatPaginator ) paginator: MatPaginator;
 
-  constructor(private dialog: MatDialog) { }
+  constructor( private dialog: MatDialog ) { }
 
   ngOnInit() {
     this.initDisplayedColumns();
     this.initDataSource();
   }
 
-  initDisplayedColumns() {
+  private initDisplayedColumns() {
     for ( const header of this.tableHeader ) {
       this.displayedColumns.push( header[ 0 ] );
     }
   }
 
-  initDataSource () {
+  private initDataSource() {
     this.dataSource = new MatTableDataSource( this.tableDataSource );
     timer( 1 ).subscribe( () => {
       this.dataSource.sort = this.sort;
@@ -45,15 +45,20 @@ export class TabletExampleComponent implements OnInit {
     } );
   }
 
-  openText(event): void {
-    const text = event.target.innerText;
-    this.dialog.open( DialogComponent, {
-      data: {
-        message: text,
-        status: 'text',
-      },
-    } );
+  openText( elem ): void {
+    const getElemCss = getComputedStyle( elem );
+    const parentWidth = elem.offsetWidth - parseInt( getElemCss.paddingRight, 10 );
+    const childrenWidth = elem.firstElementChild.offsetWidth;
 
+    if ( childrenWidth > parentWidth ) {
+      const text = elem.innerText;
+      this.dialog.open( DialogComponent, {
+        data: {
+          message: text,
+          status: 'text',
+        },
+      } );
+    }
   }
 
 }
