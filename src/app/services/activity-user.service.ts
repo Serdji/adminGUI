@@ -20,9 +20,9 @@ export class ActivityUserService {
 
   idleLogout() {
     let t;
-    const resetTimer = () => {
+    const resetTimer = _ => {
       clearTimeout( t );
-      t = setTimeout( () => { this.logout(); }, this.getMinutes( 15 ) );  // time is in milliseconds
+      t = setTimeout( _ => { this.logout(); }, this.getMinutes( 15 ) );  // time is in milliseconds
     };
 
     window.onload = resetTimer;
