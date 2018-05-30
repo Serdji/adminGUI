@@ -15,9 +15,9 @@ import { timer } from 'rxjs/observable/timer';
 } )
 export class UsersComponent implements OnInit, OnDestroy {
 
-  private formUser: FormGroup;
-  private isActive: boolean = true;
+  public formUser: FormGroup;
   public airlines: any;
+  private isActive: boolean = true;
 
   constructor(
     private fb: FormBuilder,

@@ -18,8 +18,7 @@ export class UsersSearchComponent implements OnInit, OnDestroy {
   public airlines: any;
   public isTableCard: boolean = false;
   public isLoader: boolean = false;
-
-  private formUserSearch: FormGroup;
+  public formUserSearch: FormGroup;
   private isActive: boolean = true;
 
 

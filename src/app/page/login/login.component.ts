@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   public airlineCode: string = environment.AirlineCode;
   public version: string;
   public isErrorAuth: boolean = false;
-  private formLogin: FormGroup;
+  public formLogin: FormGroup;
   private isActive: boolean = true;
 
   constructor(

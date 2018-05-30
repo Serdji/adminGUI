@@ -16,8 +16,7 @@ export class CompanyComponent implements OnInit, OnDestroy {
 
   public airlines: any;
   public isLoader: boolean = true;
-
-  private formCompany: FormGroup;
+  public formCompany: FormGroup;
   private isActive: boolean = true;
 
   constructor(
