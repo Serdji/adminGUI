@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  crmApi: '',
-  AirlineCode: ''
+  crmApi: 'https://10.1.8.155:8080/',
+  AirlineCode: 'SADMIN'
 };
