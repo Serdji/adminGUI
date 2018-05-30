@@ -17,6 +17,7 @@ export class TabletExampleComponent implements OnInit {
 
   public displayedColumns: string[] = [];
   public dataSource: MatTableDataSource<any>;
+  public isCp: boolean = false;
 
   @Input() public tableHeader: string[];
   @Input() private tableDataSource: any;
@@ -45,12 +46,20 @@ export class TabletExampleComponent implements OnInit {
     } );
   }
 
-  openText( elem ): void {
-    const getElemCss = getComputedStyle( elem );
-    const parentWidth = elem.offsetWidth - parseInt( getElemCss.paddingRight, 10 );
-    const childrenWidth = elem.firstElementChild.offsetWidth;
+  private isChildMore( parentElement ): boolean {
+    const getElemCss = getComputedStyle( parentElement );
+    const parentWidth = parentElement.offsetWidth - parseInt( getElemCss.paddingRight, 10 );
+    const childrenWidth = parentElement.firstElementChild.offsetWidth;
+    return childrenWidth > parentWidth;
 
-    if ( childrenWidth > parentWidth ) {
+  }
+
+  cursorPointer( elem: HTMLElement ): void {
+    this.isCp = this.isChildMore( elem );
+  }
+
+  openText( elem: HTMLElement ): void {
+    if ( this.isChildMore( elem ) ) {
       const text = elem.innerText;
       this.dialog.open( DialogComponent, {
         data: {
