@@ -16,12 +16,13 @@
   </mat-toolbar-row>
 </mat-toolbar>
 
-<mat-sidenav-container class="example-container" autosize>
-  <mat-sidenav #sidenav class="example-sidenav" opened="true" mode="side">
-    <a mat-button color="primary" routerLink="/admin/users"  routerLinkActive="admin__link-active">Добавить пользователя</a>
-    <a mat-button color="primary" routerLink="/admin/usersearch"  routerLinkActive="admin__link-active">Поиск пользователей</a>
-    <a mat-button color="primary" routerLink="/admin/company"  routerLinkActive="admin__link-active">Настройки</a>
+<mat-sidenav-container class="example-container unicorn-dark-theme" autosize>
+  <mat-sidenav #sidenav class="example-sidenav mat-elevation-z8" opened="true" mode="side">
+    <a mat-button routerLink="/admin/users"  routerLinkActive="admin__link-active">Добавить пользователя</a>
+    <a mat-button routerLink="/admin/usersearch"  routerLinkActive="admin__link-active">Поиск пользователей</a>
+    <a mat-button routerLink="/admin/company"  routerLinkActive="admin__link-active">Настройки</a>
   </mat-sidenav>
+
 
   <mat-sidenav-content class="admin__content">
     <div class="example-sidenav-content">
