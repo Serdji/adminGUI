@@ -25,6 +25,10 @@ import { CompanyComponent } from './components/company/company.component';
 import { CompanyService } from './components/company/company.service';
 import { environment } from '../environments/environment';
 import { LoginService } from './page/login/login.service';
+import { LayoutComponent } from './shared/layout/layout.component';
+import { ToolbarComponent } from './shared/layout/toolbar/toolbar.component';
+import { SidenavComponent } from './shared/layout/sidenav/sidenav.component';
+import { LayoutService } from './shared/layout/layout.service';
 
 
 if ( environment.production ) {
@@ -41,6 +45,9 @@ if ( environment.production ) {
     UsersSearchComponent,
     TabletExampleComponent,
     CompanyComponent,
+    LayoutComponent,
+    ToolbarComponent,
+    SidenavComponent,
   ],
   entryComponents: [
     DialogComponent,
@@ -63,6 +70,7 @@ if ( environment.production ) {
     UsersSearchService,
     CompanyService,
     LoginService,
+    LayoutService,
   ],
   bootstrap: [ AppComponent ],
 } )
