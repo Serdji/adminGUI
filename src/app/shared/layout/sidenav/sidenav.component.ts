@@ -25,7 +25,7 @@ export class SidenavComponent implements OnInit {
     private layoutService: LayoutService
     ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.timeoutCloseNav();
     this.activityUser.idleLogout();
     this.layoutService.subjectToggle.subscribe( _ => this.sidenav.toggle() );

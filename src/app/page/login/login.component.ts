@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     private loginService: LoginService,
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.initFormGroup();
     this.initVersion();
   }

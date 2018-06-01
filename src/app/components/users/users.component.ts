@@ -25,7 +25,7 @@ export class UsersComponent implements OnInit, OnDestroy {
     private dialog: MatDialog,
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.initForm();
     this.initAirline();
   }

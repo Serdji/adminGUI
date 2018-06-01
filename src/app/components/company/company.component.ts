@@ -25,7 +25,7 @@ export class CompanyComponent implements OnInit, OnDestroy {
     private dialog: MatDialog,
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.initAirline();
     this.initForm();
   }
