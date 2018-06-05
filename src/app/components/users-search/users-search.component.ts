@@ -29,7 +29,7 @@ export class UsersSearchComponent implements OnInit, OnDestroy {
     private usersSearchService: UsersSearchService,
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.initForm();
     this.initAirline();
   }

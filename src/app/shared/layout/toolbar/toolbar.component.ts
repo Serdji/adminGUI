@@ -14,7 +14,7 @@ export class ToolbarComponent implements OnInit {
     private layoutService: LayoutService,
     ) { }
 
-  ngOnInit() {}
+  ngOnInit(): void {}
 
   goOut(): void {
     this.activityUser.logout();

@@ -27,7 +27,7 @@ export class TabletExampleComponent implements OnInit {
 
   constructor( private dialog: MatDialog ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.initDisplayedColumns();
     this.initDataSource();
   }
