@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
-import { HttpQueryService } from '../../services/http-query.service';
 import { Observable } from 'rxjs/Observable';
-import { IuserSearch } from '../../interface/iuser-search';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class UsersSearchService {
 
-  constructor(private httpQuery: HttpQueryService) { }
+  constructor( private http: HttpClient ) { }
 
-  getUserSearch (params: string): Observable<IuserSearch> {
-    return this.httpQuery.getWithOptions('web_auth/api/accounts/users', params);
+  getUserSearch( params: string ): Observable<any> {
+    return this.http.get( environment.crmApi + '/web_auth/api/accounts/users' + params );
   }
 
 }
