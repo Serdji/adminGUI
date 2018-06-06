@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
-import { LocalStorage } from '@ngx-pwa/local-storage';
 import { Router } from '@angular/router';
 import { takeWhile } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
@@ -23,7 +22,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
     private auth: AuthService,
-    private localStorage: LocalStorage,
     private router: Router,
     private loginService: LoginService,
   ) { }
@@ -31,6 +29,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.initFormGroup();
     this.initVersion();
+    const token = JSON.parse(localStorage.getItem('token'));
   }
 
   private initFormGroup() {
@@ -54,10 +53,13 @@ export class LoginComponent implements OnInit, OnDestroy {
         .pipe( takeWhile( _ => this.isActive ) )
         .subscribe(
           ( value ) => {
-            this.localStorage.setItem( 'user', this.formLogin.getRawValue() )
-              .subscribe();
-            this.localStorage.setItem( 'token', value )
-              .subscribe( _ => this.router.navigate( [ 'admin/users' ] ) );
+            const user = this.formLogin.getRawValue();
+            Object.assign( user, { grant_type: 'password' } );
+            localStorage.setItem( 'user', JSON.stringify( user ) );
+            localStorage.setItem( 'token', JSON.stringify( value ) );
+            if ( JSON.parse( localStorage.getItem( 'token' ) ) ) {
+              this.router.navigate( [ 'admin/users' ] );
+            }
           },
           _ => this.isErrorAuth = true
         );

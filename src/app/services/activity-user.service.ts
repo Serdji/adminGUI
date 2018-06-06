@@ -1,20 +1,16 @@
 import { Injectable } from '@angular/core';
 import { fromEvent } from 'rxjs/observable/fromEvent';
 import { Router } from '@angular/router';
-import { LocalStorage } from '@ngx-pwa/local-storage';
 
 @Injectable()
 export class ActivityUserService {
 
   private isActive: boolean = true;
 
-  constructor(
-    private router: Router,
-    private localStorage: LocalStorage,
-  ) { }
+  constructor( private router: Router ) { }
 
   logout() {
-    this.localStorage.clear().subscribe();
+    localStorage.clear();
     this.router.navigate( [ '' ] );
   }
 

@@ -8,15 +8,13 @@ import { AppComponent } from './app.component';
 import { MaterialModule } from './material.module';
 import { LoginComponent } from './page/login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthService } from './services/auth.service';
-import { LocalStorageModule } from '@ngx-pwa/local-storage';
 import { AdminComponent } from './page/admin/admin.component';
 import { UsersComponent } from './components/users/users.component';
 import { UsersService } from './components/users/users.service';
 import { AuthGuard } from './auth.guard';
 import { ActivityUserService } from './services/activity-user.service';
-import { HttpQueryService } from './services/http-query.service';
 import { DialogComponent } from './shared/dialog/dialog.component';
 import { UsersSearchComponent } from './components/users-search/users-search.component';
 import { UsersSearchService } from './components/users-search/users-search.service';
@@ -29,6 +27,7 @@ import { LayoutComponent } from './shared/layout/layout.component';
 import { ToolbarComponent } from './shared/layout/toolbar/toolbar.component';
 import { SidenavComponent } from './shared/layout/sidenav/sidenav.component';
 import { LayoutService } from './shared/layout/layout.service';
+import { AuthInterceptor } from './services/auth-interceptor';
 
 
 if ( environment.production ) {
@@ -59,18 +58,21 @@ if ( environment.production ) {
     MaterialModule,
     ReactiveFormsModule,
     HttpClientModule,
-    LocalStorageModule,
   ],
   providers: [
     AuthService,
     AuthGuard,
     UsersService,
     ActivityUserService,
-    HttpQueryService,
     UsersSearchService,
     CompanyService,
     LoginService,
     LayoutService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [ AppComponent ],
 } )
